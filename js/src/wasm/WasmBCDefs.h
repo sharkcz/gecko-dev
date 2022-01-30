@@ -49,6 +49,8 @@
 #endif
 #if defined(JS_CODEGEN_LOONG64)
 #  include "jit/loong64/Assembler-loong64.h"
+#if defined(JS_CODEGEN_PPC64)
+#  include "jit/ppc64/Assembler-ppc64.h"
 #endif
 #include "js/ScalarType.h"
 #include "util/Memory.h"
@@ -176,6 +178,10 @@ enum class RhsDestOp { True = true };
 
 #ifdef JS_CODEGEN_LOONG64
 #  define RABALDR_PIN_INSTANCE
+#endif
+
+#ifdef JS_CODEGEN_PPC64
+#  define RABALDR_HAS_HEAPREG
 #endif
 
 // Max number of pushes onto the value stack for any opcode or emitter that

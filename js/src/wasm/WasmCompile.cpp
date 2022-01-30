@@ -52,6 +52,7 @@ uint32_t wasm::ObservedCPUFeatures() {
     MIPS64 = 0x5,
     ARM64 = 0x6,
     LOONG64 = 0x7,
+    PPC64 = 0x8,
     ARCH_BITS = 3
   };
 
@@ -75,6 +76,9 @@ uint32_t wasm::ObservedCPUFeatures() {
 #elif defined(JS_CODEGEN_LOONG64)
   MOZ_ASSERT(jit::GetLOONG64Flags() <= (UINT32_MAX >> ARCH_BITS));
   return LOONG64 | (jit::GetLOONG64Flags() << ARCH_BITS);
+#elif defined(JS_CODEGEN_PPC64)
+  MOZ_ASSERT(jit::GetPPC64Flags() <= (UINT32_MAX >> ARCH_BITS));
+  return PPC64 | (jit::GetPPC64Flags() << ARCH_BITS);
 #elif defined(JS_CODEGEN_NONE)
   return 0;
 #else
