@@ -578,7 +578,8 @@ void BaseCompiler::load(MemoryAccessDesc* access, AccessCheck* check,
   // generated is the same for the 64-bit and the 32-bit case.
   return executeLoad(access, check, instance, RegI32(ptr.reg), dest,
                      maybeFromI64(temp));
-#  elif defined(JS_CODEGEN_MIPS64) || defined(JS_CODEGEN_LOONG64)
+#  elif defined(JS_CODEGEN_MIPS64) || defined(JS_CODEGEN_LOONG64) || \
+     defined(JS_CODEGEN_PPC64)
   // On mips64 and loongarch64, the 'prepareMemoryAccess' function will make
   // sure that ptr holds a valid 64-bit index value. Thus the code generated in
   // 'executeLoad' is the same for the 64-bit and the 32-bit case.
@@ -696,7 +697,8 @@ void BaseCompiler::store(MemoryAccessDesc* access, AccessCheck* check,
   return executeStore(access, check, instance, RegI32(ptr.low), src,
                       maybeFromI64(temp));
 #  elif defined(JS_CODEGEN_X64) || defined(JS_CODEGEN_ARM64) || \
-      defined(JS_CODEGEN_MIPS64) || defined(JS_CODEGEN_LOONG64)
+      defined(JS_CODEGEN_MIPS64) || defined(JS_CODEGEN_LOONG64) || \
+      defined(JS_CODEGEN_PPC64)
   return executeStore(access, check, instance, RegI32(ptr.reg), src,
                       maybeFromI64(temp));
 #  else
