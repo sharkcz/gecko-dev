@@ -1680,8 +1680,24 @@ Value SnapshotIterator::allocationValue(const RValueAllocation& alloc,
     case RValueAllocation::DOUBLE_REG:
       return DoubleValue(fromRegister<double>(alloc.fpuReg()));
 
-    case RValueAllocation::ANY_FLOAT_REG:
-      return Float32Value(fromRegister<float>(alloc.fpuReg()));
+    case RValueAllocation::ANY_FLOAT_REG: {
+      union {
+        double d;
+        float f;
+      } pun;
+      MOZ_ASSERT(alloc.fpuReg().isSingle());
+      pun.d = fromRegister(alloc.fpuReg());
+#if defined(JS_CODEGEN_PPC64)
+      // PowerPC FPRs do not expose to the ISA if they were floats or
+      // doubles (the ISA treats them largely interchangeably), so
+      // they are always written as doubles on bailout.
+      return Float32Value((float)pun.d);
+#else
+      // The register contains the encoding of a float32. We just read
+      // the bits without making any conversion.
+      return Float32Value(pun.f);
+#endif
+    }
 
     case RValueAllocation::ANY_FLOAT_STACK:
       return Float32Value(ReadFrameFloat32Slot(fp_, alloc.stackOffset()));
