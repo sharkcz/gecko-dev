@@ -49,6 +49,7 @@
 #endif
 #if defined(JS_CODEGEN_LOONG64)
 #  include "jit/loong64/Assembler-loong64.h"
+#endif
 #if defined(JS_CODEGEN_PPC64)
 #  include "jit/ppc64/Assembler-ppc64.h"
 #endif

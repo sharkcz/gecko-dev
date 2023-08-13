@@ -1131,13 +1131,6 @@ class MacroAssemblerPPC64Compat : public MacroAssemblerPPC64
         as_fmr(dest, src);
     }
 
-    void loadWasmGlobalPtr(uint32_t globalDataOffset, Register dest) {
-        loadPtr(Address(WasmTlsReg, offsetof(wasm::TlsData, globalArea) + globalDataOffset), dest);
-    }
-    void loadWasmPinnedRegsFromTls() {
-        loadPtr(Address(WasmTlsReg, offsetof(wasm::TlsData, memoryBase)), HeapReg);
-    }
-
     // Instrumentation for entering and leaving the profiler.
     void profilerEnterFrame(Register framePtr, Register scratch);
     void profilerExitFrame();

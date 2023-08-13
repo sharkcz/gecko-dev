@@ -1686,7 +1686,7 @@ Value SnapshotIterator::allocationValue(const RValueAllocation& alloc,
         float f;
       } pun;
       MOZ_ASSERT(alloc.fpuReg().isSingle());
-      pun.d = fromRegister(alloc.fpuReg());
+      pun.d = fromRegister<double>(alloc.fpuReg());
 #if defined(JS_CODEGEN_PPC64)
       // PowerPC FPRs do not expose to the ISA if they were floats or
       // doubles (the ISA treats them largely interchangeably), so

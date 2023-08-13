@@ -42,7 +42,7 @@ inline void FlushICache(void* code, size_t size) { MOZ_CRASH(); }
 
 #if (defined(JS_CODEGEN_X86) || defined(JS_CODEGEN_X64)) ||       \
     (defined(JS_CODEGEN_MIPS32) || defined(JS_CODEGEN_MIPS64)) || \
-    defined(JS_CODEGEN_LOONG64)
+    defined(JS_CODEGEN_LOONG64) || defined(JS_CODEGEN_PPC64)
 
 inline void FlushExecutionContext() {
   // No-op. Execution context is coherent with instruction cache.

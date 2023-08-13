@@ -190,10 +190,10 @@ static constexpr Register RegExpTesterRegExpReg = CallTempReg0;
 static constexpr Register RegExpTesterStringReg = CallTempReg1;
 static constexpr Register RegExpTesterLastIndexReg = CallTempReg2;
 
-// TLS pointer argument register for WebAssembly functions. This must not alias
-// any other register used for passing function arguments or return values.
-// Preserved by WebAssembly functions.
-static constexpr Register WasmTlsReg = r18;
+// Instance pointer argument register for WebAssembly functions. This must not
+// alias any other register used for passing function arguments or return
+// values. Preserved by WebAssembly functions. Must be nonvolatile.
+static constexpr Register InstanceReg = r18;
 
 // Registers used for wasm table calls. These registers must be disjoint
 // from the ABI argument registers, WasmTlsReg and each other.
