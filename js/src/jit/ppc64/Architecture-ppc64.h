@@ -200,8 +200,8 @@ class Registers
         (1 << Registers::r27) |
         (1 << Registers::r28) |
         (1 << Registers::r29) |
-        (1 << Registers::r30) |
-        (1 << Registers::r31)
+        (1 << Registers::r30) /* |
+        (1 << Registers::r31)     */
         // Watch out for sign extension!
         ) & AllMask;
 
